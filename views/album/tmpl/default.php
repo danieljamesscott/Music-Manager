@@ -14,7 +14,7 @@ endif; ?>
 <ol>
 <?php foreach($this->items as $item) : ?>
 <li>
-<a href="<?php echo JPATH_ROOT.DS; ?>images/songs/<?php echo $item->name; ?>" ><?php echo $item->name; ?></a>
+<a href="images/songs/<?php echo $item->mp3; ?>" ><?php echo $item->name; ?></a>
 </li>
 <?php endforeach; ?>
 </ol>
