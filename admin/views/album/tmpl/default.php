@@ -163,7 +163,7 @@
 		<tr>
 			<td colspan="2">
 				<?php 
-		//echo $this->params->render();
+		echo $this->params->render();
 ?>
 			</td>
 		</tr>

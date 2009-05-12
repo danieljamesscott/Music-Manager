@@ -11,15 +11,5 @@
 		<url addpath="/administrator/components/com_music/elements">
 			<param name="cid" type="album" scope="com_music" default="0" label="Select Album" description="A music album" />
 		</url>
-		<params>
-			<param name="show_albumart_front" type="radio" default="1" label="Show front albumart" description="Show/Hide the front albumart below">
-				<option value="0">Hide</option>
-				<option value="1">Show</option>
-			</param>
-			<param name="show_albumart_back" type="radio" default="1" label="Show back albumart" description="Show/Hide the back albumart below">
-				<option value="0">Hide</option>
-				<option value="1">Show</option>
-			</param>
-		</params>
 	</state>
 </metadata>

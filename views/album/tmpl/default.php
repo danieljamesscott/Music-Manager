@@ -20,13 +20,13 @@ endif; ?>
 </ol>
 </td>
 <td align="right">
-<?php  if ($this->params->get('show_albumart_front') != -1 && $this->params->get('show_albumart_front') != '') : ?>
+<?php if ($this->params->get('show_albumart_front')) { ?>
 <?php if ($this->album->albumart_front == "") {
   print "No front album art available";
 } else { ?>
 <img src="images/albumart/<?php echo $this->album->albumart_front; ?>" align="<?php echo $this->params->get('image_align'); ?>" hspace="6" height="200px" width="200px" alt="<?php echo $this->album->name . ' ' . JText::_( 'Front Albumart' ); ?>" />
 <?php } ?>
-<?php endif; ?>
+<?php } ?>
 </td>
 </tr>
 <tr>
@@ -34,13 +34,14 @@ endif; ?>
 <?php echo nl2br($this->album->description); ?>
 </td>
 <td align="right">
-<?php if ($this->params->get('show_albumart_back') != -1 && $this->params->get('show_albumart_back') != '') : ?>
+<?php print $this->params->get('show_albumart_back'); ?>
+<?php if ($this->params->get('show_albumart_back')) { ?>
 <?php if ($this->album->albumart_back == "") {
   print "No back album art available";
 } else { ?>
  <img src="images/albumart/<?php echo $this->album->albumart_back; ?>" align="<?php echo $this->params->get('image_align'); ?>" hspace="6" height="200px" width="200px" alt="<?php echo $this->album->name . ' ' . JText::_( 'Back Albumart' ); ?>" />
 <?php } ?>
-<?php endif; ?>
+<?php } ?>
 </td>
 </tr>
 </tbody>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<config>
+<root>
 	<params>
 		<param name="show_albumart_front" type="radio" default="1" label="Show front albumart" description="Show/Hide the front albumart below">
 			<option value="0">Hide</option>
@@ -10,4 +10,4 @@
 			<option value="1">Show</option>
 		</param>
 	</params>
-</config>
+</root>

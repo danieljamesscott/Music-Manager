@@ -31,7 +31,7 @@ class MusicViewAlbum extends JView
     $model	= &$this->getModel();
     $document	=& JFactory::getDocument();
 
-    $pparams = &$mainframe->getPageParameters('com_music');
+    $pparams = &JComponentHelper::getParams('com_music');
 
     // Selected Request vars
     $albumId		= JRequest::getVar('cid',0,'', 'int');
@@ -52,6 +52,7 @@ class MusicViewAlbum extends JView
     $album =& $albums[0];
 
     // Add in specific parameters
+    $album->params = new JParameter($album->params);
     $pparams->merge($album->params);
 
     // Get the parameters of the active menu item
@@ -60,12 +61,7 @@ class MusicViewAlbum extends JView
 
     if (is_object( $menu )) {
       $menu_params = new JParameter( $menu->params );
-      $pparams->merge($menu->params);
-    }
-
-    if ($menu) {
-      //      print_r($menu->getParams());
-      //      $pparams->merge($menu->getParams($menuitemid));
+      $pparams->merge($menu_params);
     }
 
     $songs = $model->getSongs( $options );
