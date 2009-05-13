@@ -15,6 +15,10 @@ endif; ?>
 <?php foreach($this->items as $item) : ?>
 <li>
 <a href="images/songs/<?php echo $item->mp3; ?>" ><?php echo $item->name; ?></a>
+<?php if ($this->params->get('show_player_plugin')) {
+  print $item->plugin_code;
+}
+ ?>
 </li>
 <?php endforeach; ?>
 </ol>

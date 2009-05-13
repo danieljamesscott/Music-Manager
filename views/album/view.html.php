@@ -75,6 +75,13 @@ class MusicViewAlbum extends JView
       $song->odd   = $k;
       $song->count = $i;
       $k = 1 - $k;
+
+      // Wrap the mp3 name in {play}{/play} tags for plugin.
+      if ($song->mp3 != '') {
+	$song->plugin_code = JHTML::_('content.prepare',"{play}images/songs/" . $song->mp3 . "{/play}");
+      } else {
+	$song->plugin_code = '';
+      }
     }
 
     if ($album == null) {

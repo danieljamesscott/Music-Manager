@@ -9,5 +9,9 @@
 			<option value="0">Hide</option>
 			<option value="1">Show</option>
 		</param>
+		<param name="show_player_plugin" type="radio" default="0" label="Show MP3 player" description="Show/Hide the MP3 player">
+			<option value="0">Hide</option>
+			<option value="1">Show</option>
+		</param>
 	</params>
 </root>
