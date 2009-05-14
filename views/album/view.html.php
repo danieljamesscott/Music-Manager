@@ -62,6 +62,19 @@ class MusicViewAlbum extends JView
     if (is_object( $menu )) {
       $menu_params = new JParameter( $menu->params );
       $pparams->merge($menu_params);
+      if (!$menu_params->get('page_title')) {
+	$pparams->set('page_title', $album->name);
+      }
+    } else {
+      $pparams->set('page_title', $album->name);
+    }      
+
+    // Set the page title and pathway
+    if ($pparams->get('page_title')) {
+      // Add the album breadcrumbs item
+      $document->setTitle(JText::_('Music').' - '.$pparams->get('page_title'));
+    } else {
+      $document->setTitle(JText::_('Music'));
     }
 
     $songs = $model->getSongs( $options );
@@ -87,14 +100,6 @@ class MusicViewAlbum extends JView
     if ($album == null) {
       $db = &JFactory::getDBO();
       $album =& JTable::getInstance( 'album' );
-    }
-
-    // Set the page title and pathway
-    if ($album->name) {
-      // Add the album breadcrumbs item
-      $document->setTitle(JText::_('Music').' - '.$album->name);
-    } else {
-      $document->setTitle(JText::_('Music'));
     }
 
     // table ordering

@@ -1,10 +1,11 @@
 <?php defined( '_JEXEC' ) or die(); ?>
 <div class="componentheading<?php echo $this->params->get( 'pageclass_sfx' ); ?>">
-<?php if ($this->album->name) :
-	echo $this->params->get('page_title').' - '.$this->album->name;
-else :
-	echo $this->params->get('page_title');
-endif; ?>
+<?php if ($this->params->def('show_page_title')) {
+    echo $this->params->get('page_title');
+  } else {
+    echo $this->album->name;
+  }
+?>
 </div>
 <div class="contentpane<?php echo $this->params->get( 'pageclass_sfx' ); ?>">
 <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
@@ -38,7 +39,6 @@ endif; ?>
 <?php echo nl2br($this->album->description); ?>
 </td>
 <td align="right">
-<?php print $this->params->get('show_albumart_back'); ?>
 <?php if ($this->params->get('show_albumart_back')) { ?>
 <?php if ($this->album->albumart_back == "") {
   print "No back album art available";

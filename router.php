@@ -52,7 +52,6 @@ function MusicParseRoute($segments)
 	//Standard routing for articles
 	if(!isset($item)) 
 	{
-		$vars['view']  = $segments[$count - 2];;
 		$vars['id']    = $segments[$count - 1];
 		return $vars;
 	}
@@ -63,7 +62,6 @@ function MusicParseRoute($segments)
 		case 'album'   :
 		{
 			$vars['id']   = $segments[$count-1];
-			$vars['view'] = 'member';
 
 		} break;
 	}
