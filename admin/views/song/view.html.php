@@ -115,8 +115,15 @@ class MusicViewSong extends JView
 		  echo "Failed to create directory images/songs";
 		  $mainframe->close();
 		}
-		// Build list og mp3s - use the images list.
-		$lists['mp3'] = JHTMLList::images('mp3', $song->mp3, '', 'images/songs', 'mp3' );
+		// Build list of mp3s
+                $songFiles = JFolder::files(JPATH_SITE.DS."images/songs", '.', true, true);
+                $songs = array(JHTML::_('select.option',  '', '- '. JText::_('Select Song') .' -'));
+                foreach ( $songFiles as $file ) {
+                  // Strip off root
+                  $file = str_replace(JPATH_ROOT.DS."images/songs/", '', $file);
+		  $songs[] = JHTML::_('select.option',  $file );
+                }
+                $lists['mp3'] = JHTML::_('select.genericlist',  $songs, 'mp3', 'class="inputbox" size="1" '. null, 'value', 'text', $song->mp3 );
 
 		$file 	= JPATH_COMPONENT.DS.'models'.DS.'song.xml';
 		$params = new JParameter( $song->params, $file );

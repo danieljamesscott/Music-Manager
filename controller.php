@@ -39,24 +39,6 @@ class MusicController extends JController
 		// Type?
 		$viewType	= $document->getType();
 
-		// interceptors to support legacy urls
-		switch ($this->getTask())
-		{
-			//index.php?option=com_music&task=album&id=0&Itemid=4
-			case 'album':
-				$viewName	= 'album';
-				$layout		= 'default';
-				break;
-			case 'view':
-				$viewName	= 'song';
-				$layout		= 'default';
-				break;
-			case 'view':
-				$viewName	= 'artist';
-				$layout		= 'default';
-				break;
-		}
-
 		// Set the default view name from the Request
 		$view = &$this->getView($viewName, $viewType);
 

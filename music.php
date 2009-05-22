@@ -1,7 +1,6 @@
 <?php
 /**
  * @package	Music
- * @subpackage
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
  * @copyright   Copyright (C) 2009 Daniel Scott (http://danieljamesscott.org). All rights reserved. 
  * @license		GNU/GPL, see LICENSE.php
