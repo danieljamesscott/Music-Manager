@@ -111,16 +111,16 @@ class MusicViewSong extends JView
 		JFilterOutput::objectHTMLSafe( $song, ENT_QUOTES, 'description' );
 
 		//Then we create the subfolder called songs
-		if ( !JFolder::create(JPATH_ROOT.DS."images/songs") ) {
+		if ( !JFolder::create(JPATH_ROOT.DS."images".DS."songs") ) {
 		  echo "Failed to create directory images/songs";
 		  $mainframe->close();
 		}
 		// Build list of mp3s
-                $songFiles = JFolder::files(JPATH_SITE.DS."images/songs", '.', true, true);
+                $songFiles = JFolder::files(JPATH_SITE.DS."images".DS."songs", '.', true, true);
                 $songs = array(JHTML::_('select.option',  '', '- '. JText::_('Select Song') .' -'));
                 foreach ( $songFiles as $file ) {
                   // Strip off root
-                  $file = str_replace(JPATH_ROOT.DS."images/songs/", '', $file);
+                  $file = str_replace(JPATH_ROOT.DS."images".DS."songs".DS, '', $file);
 		  $songs[] = JHTML::_('select.option',  $file );
                 }
                 $lists['mp3'] = JHTML::_('select.genericlist',  $songs, 'mp3', 'class="inputbox" size="1" '. null, 'value', 'text', $song->mp3 );

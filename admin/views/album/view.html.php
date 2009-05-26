@@ -110,13 +110,13 @@ class MusicViewAlbum extends JView
 		jimport('joomla.filter.output');
 		JFilterOutput::objectHTMLSafe( $album, ENT_QUOTES, 'description' );
 
-		if ( !JFolder::create(JPATH_ROOT.DS."images/albumart") ) {
+		if ( !JFolder::create(JPATH_ROOT.DS."images".DS."albumart") ) {
 		  echo "Failed to create directory images/albumart";
 		  $mainframe->close();
 		}
 
-		$lists['albumart_front'] 			= JHTMLList::images('albumart_front', $album->albumart_front, '', 'images/albumart' );
-		$lists['albumart_back'] 			= JHTMLList::images('albumart_back', $album->albumart_back, '', 'images/albumart' );
+		$lists['albumart_front'] 			= JHTMLList::images('albumart_front', $album->albumart_front, '', 'images'.DS.'albumart' );
+		$lists['albumart_back'] 			= JHTMLList::images('albumart_back', $album->albumart_back, '', 'images'.DS.'albumart' );
 
 		$file 	= JPATH_COMPONENT.DS.'models'.DS.'album.xml';
 		$params = new JParameter( $album->params, $file );
