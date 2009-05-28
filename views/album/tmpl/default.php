@@ -50,12 +50,7 @@
 </tr>
 </tbody>
 </table>
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
+
 <br />
 <small>Designed by: <a href="http://danieljamesscott.org">http://danieljamesscott.org</a></small>
 <input type="hidden" name="option" value="com_music" />
