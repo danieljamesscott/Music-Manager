@@ -67,7 +67,7 @@ class MusicViewAlbum extends JView
       }
     } else {
       $pparams->set('page_title', $album->name);
-    }      
+    }
 
     // Set the page title and pathway
     if ($pparams->get('page_title')) {
@@ -89,9 +89,9 @@ class MusicViewAlbum extends JView
       $song->count = $i;
       $k = 1 - $k;
 
-      // Wrap the mp3 name in {play}{/play} tags for plugin.
+      // Wrap the mp3 name in {$player_plugin $player_plugin_options}{/$player_plugin} tags for plugin.
       if ($song->mp3 != '') {
-	$song->plugin_code = JHTML::_('content.prepare',"{play}images/songs/" . $song->mp3 . "{/play}");
+	$song->plugin_code = JHTML::_('content.prepare',"{" . $pparams->player_plugin . " " . $pparams->player_plugin_options . "}images/songs/" . $song->mp3 . "{/" . $pparams->player_plugin . "}");
       } else {
 	$song->plugin_code = '';
       }

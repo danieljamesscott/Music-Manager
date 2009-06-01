@@ -8,21 +8,21 @@
   <authorUrl>http://danieljamesscott.org</authorUrl>
   <copyright>Copyright Daniel Scott 2009</copyright>
   <license>GPL V3 or later</license>
-  <version>0.9</version>
+  <version>0.10</version>
   <description>Music management component</description>
-  
+
   <install>
     <sql>
       <file charset="utf8" driver="mysql">install.mysql.sql</file>
     </sql>
   </install>
-  
+
   <uninstall>
     <sql>
       <file charset="utf8" driver="mysql">uninstall.mysql.sql</file>
     </sql>
   </uninstall>
-  
+
   <files>
     <filename>index.html</filename>
     <filename>controller.php</filename>
@@ -32,7 +32,7 @@
     <filename>metadata.xml</filename>
     <folder>views</folder>
   </files>
-  
+
   <administration>
     <menu>Music</menu>
     <submenu>
@@ -40,7 +40,7 @@
       <menu link="option=com_music&amp;c=albums">Albums</menu>
       <menu link="option=com_music&amp;c=artists">Artists</menu>
     </submenu>
-    
+
     <files folder="admin">
       <folder>tables</folder>
       <filename>music.php</filename>
@@ -53,6 +53,6 @@
       <filename>install.mysql.sql</filename>
       <filename>uninstall.mysql.sql</filename>
     </files>
-    
+
   </administration>
 </install>
