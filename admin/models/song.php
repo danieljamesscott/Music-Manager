@@ -32,7 +32,7 @@ class MusicModelSong extends JModel
 	{
 		parent::__construct();
 
-		$array = JRequest::getVar('song_id', array(0), '', 'array');
+		$array = JRequest::getVar('cid', array(0), '', 'array');
 		$edit	= JRequest::getVar('edit',true);
 		if($edit)
 			$this->setId((int)$array[0]);

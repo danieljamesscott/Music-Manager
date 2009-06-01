@@ -55,7 +55,7 @@ class MusicControllerAlbums extends JController
 	function save()
 	{
 		$post	= JRequest::get('post');
-		$album_id	= JRequest::getVar( 'album_id', array(0), 'post', 'array' );
+		$album_id	= JRequest::getVar( 'cid', array(0), 'post', 'array' );
 		$post['id'] = (int) $album_id[0];
 
 		$model = $this->getModel('album');
@@ -76,7 +76,7 @@ class MusicControllerAlbums extends JController
 	{
 		global $mainframe;
 
-		$album_id = JRequest::getVar( 'album_id', array(), 'post', 'array' );
+		$album_id = JRequest::getVar( 'cid', array(), 'post', 'array' );
 		JArrayHelper::toInteger($album_id);
 
 		if (count( $album_id ) < 1) {
@@ -96,7 +96,7 @@ class MusicControllerAlbums extends JController
 	{
 		global $mainframe;
 
-		$album_id = JRequest::getVar( 'album_id', array(), 'post', 'array' );
+		$album_id = JRequest::getVar( 'cid', array(), 'post', 'array' );
 		JArrayHelper::toInteger($album_id);
 
 		if (count( $album_id ) < 1) {
@@ -116,7 +116,7 @@ class MusicControllerAlbums extends JController
 	{
 		global $mainframe;
 
-		$album_id = JRequest::getVar( 'album_id', array(), 'post', 'array' );
+		$album_id = JRequest::getVar( 'cid', array(), 'post', 'array' );
 		JArrayHelper::toInteger($album_id);
 
 		if (count( $album_id ) < 1) {
@@ -159,7 +159,7 @@ class MusicControllerAlbums extends JController
 
 	function saveorder()
 	{
-		$album_id 	= JRequest::getVar( 'album_id', array(), 'post', 'array' );
+		$album_id 	= JRequest::getVar( 'cid', array(), 'post', 'array' );
 		$order 	= JRequest::getVar( 'order', array(), 'post', 'array' );
 		JArrayHelper::toInteger($album_id);
 		JArrayHelper::toInteger($order);

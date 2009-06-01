@@ -55,7 +55,7 @@ class MusicControllerArtists extends JController
 	function save()
 	{
 		$post	= JRequest::get('post');
-		$artist_id	= JRequest::getVar( 'artist_id', array(0), 'post', 'array' );
+		$artist_id	= JRequest::getVar( 'cid', array(0), 'post', 'array' );
 		$post['id'] = (int) $artist_id[0];
 
 		$model = $this->getModel('artist');
@@ -76,7 +76,7 @@ class MusicControllerArtists extends JController
 	{
 		global $mainframe;
 
-		$artist_id = JRequest::getVar( 'artist_id', array(), 'post', 'array' );
+		$artist_id = JRequest::getVar( 'cid', array(), 'post', 'array' );
 		JArrayHelper::toInteger($artist_id);
 
 		if (count( $artist_id ) < 1) {
@@ -96,7 +96,7 @@ class MusicControllerArtists extends JController
 	{
 		global $mainframe;
 
-		$artist_id = JRequest::getVar( 'artist_id', array(), 'post', 'array' );
+		$artist_id = JRequest::getVar( 'cid', array(), 'post', 'array' );
 		JArrayHelper::toInteger($artist_id);
 
 		if (count( $artist_id ) < 1) {
@@ -116,7 +116,7 @@ class MusicControllerArtists extends JController
 	{
 		global $mainframe;
 
-		$artist_id = JRequest::getVar( 'artist_id', array(), 'post', 'array' );
+		$artist_id = JRequest::getVar( 'cid', array(), 'post', 'array' );
 		JArrayHelper::toInteger($artist_id);
 
 		if (count( $artist_id ) < 1) {
@@ -159,7 +159,7 @@ class MusicControllerArtists extends JController
 
 	function saveorder()
 	{
-		$artist_id 	= JRequest::getVar( 'artist_id', array(), 'post', 'array' );
+		$artist_id 	= JRequest::getVar( 'cid', array(), 'post', 'array' );
 		$order 	= JRequest::getVar( 'order', array(), 'post', 'array' );
 		JArrayHelper::toInteger($artist_id);
 		JArrayHelper::toInteger($order);

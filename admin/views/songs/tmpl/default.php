@@ -80,7 +80,7 @@
 	{
 		$row = &$this->items[$i];
 
-				$link 	= JRoute::_( 'index.php?option=com_music&view=song&task=edit&song_id[]='. $row->id );
+				$link 	= JRoute::_( 'index.php?option=com_music&view=song&task=edit&cid[]='. $row->id );
 
 				$checked 	= JHTML::_('grid.checkedout',   $row, $i );
 				//				$access 	= JHTML::_('grid.access',   $row, $i );
@@ -88,7 +88,7 @@
 
 				$ordering = ($this->lists['order'] == 'a.ordering');
 
-				$row->album_link 	= JRoute::_( 'index.php?option=com_music&c=albums&task=edit&song_id[]='. $row->albumid );
+				$row->album_link 	= JRoute::_( 'index.php?option=com_music&c=albums&task=edit&cid[]='. $row->albumid );
 				//				$row->user_link	= JRoute::_( 'index.php?option=com_users&task=editA&song_id[]='. $row->user );
 				?>
 				<tr class="<?php echo "row$k"; ?>">

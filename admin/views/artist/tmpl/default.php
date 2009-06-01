@@ -150,6 +150,6 @@
 
 <input type="hidden" name="option" value="com_music" />
 <input type="hidden" name="c" value="artists" />
-<input type="hidden" name="artist_id[]" value="<?php echo $this->artist->id; ?>" />
+<input type="hidden" name="cid[]" value="<?php echo $this->artist->id; ?>" />
 <input type="hidden" name="task" value="" />
 </form>

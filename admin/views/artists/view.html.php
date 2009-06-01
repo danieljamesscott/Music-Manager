@@ -3,7 +3,7 @@
 * @package     Music
 * @subpackage  Artist
 * @copyright   Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
-* @copyright   Copyright (C) 2009 Daniel Scott (http://danieljamesscott.org). All rights reserved. 
+* @copyright   Copyright (C) 2009 Daniel Scott (http://danieljamesscott.org). All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
 * Joomla! is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -57,7 +57,7 @@ class MusicViewArtists extends JView {
     $this->assignRef('lists',		$lists);
     $this->assignRef('items',		$items);
     $this->assignRef('pagination',	$pagination);
-		
+
     parent::display($tpl);
   }
 }

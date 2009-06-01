@@ -116,12 +116,12 @@ class TableArtist extends JTable
  		}
 
 		/** check for existing name */
-		$query = 'SELECT id FROM #__artists WHERE name = '.$this->_db->Quote($this->name).' AND id = '.(int) $this->id;
+		$query = 'SELECT id FROM #__artists WHERE name = '.$this->_db->Quote($this->name);
 		$this->_db->setQuery($query);
 
 		$xid = intval($this->_db->loadResult());
 		if ($xid && $xid != intval($this->id)) {
-			$this->_error = JText::sprintf('WARNNAMETRYAGAIN', JText::_('Web Link'));
+			$this->_error = JText::sprintf('WARNNAMETRYAGAIN', JText::_('Artist'));
 			return false;
 		}
 

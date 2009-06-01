@@ -3,7 +3,7 @@
  * @package	Music
  * @subpackage	Songs
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
- * @copyright   Copyright (C) 2009 Daniel Scott (http://danieljamesscott.org). All rights reserved. 
+ * @copyright   Copyright (C) 2009 Daniel Scott (http://danieljamesscott.org). All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant to the
  * GNU General Public License, and as distributed it includes or is derivative
@@ -54,7 +54,7 @@ class MusicControllerSongs extends JController
 	function save()
 	{
 		$post	= JRequest::get('post');
-		$song_id	= JRequest::getVar( 'song_id', array(0), 'post', 'array' );
+		$song_id	= JRequest::getVar( 'cid', array(0), 'post', 'array' );
 		$post['id'] = (int) $song_id[0];
 
 		$model = $this->getModel('song');
@@ -75,7 +75,7 @@ class MusicControllerSongs extends JController
 	{
 		global $mainframe;
 
-		$song_id = JRequest::getVar( 'song_id', array(), 'post', 'array' );
+		$song_id = JRequest::getVar( 'cid', array(), 'post', 'array' );
 		JArrayHelper::toInteger($song_id);
 
 		if (count( $song_id ) < 1) {
@@ -95,7 +95,7 @@ class MusicControllerSongs extends JController
 	{
 		global $mainframe;
 
-		$song_id = JRequest::getVar( 'song_id', array(), 'post', 'array' );
+		$song_id = JRequest::getVar( 'cid', array(), 'post', 'array' );
 		JArrayHelper::toInteger($song_id);
 
 		if (count( $song_id ) < 1) {
@@ -115,7 +115,7 @@ class MusicControllerSongs extends JController
 	{
 		global $mainframe;
 
-		$song_id = JRequest::getVar( 'song_id', array(), 'post', 'array' );
+		$song_id = JRequest::getVar( 'cid', array(), 'post', 'array' );
 		JArrayHelper::toInteger($song_id);
 
 		if (count( $song_id ) < 1) {
@@ -158,7 +158,7 @@ class MusicControllerSongs extends JController
 
 	function saveorder()
 	{
-		$song_id 	= JRequest::getVar( 'song_id', array(), 'post', 'array' );
+		$song_id 	= JRequest::getVar( 'cid', array(), 'post', 'array' );
 		$order 	= JRequest::getVar( 'order', array(), 'post', 'array' );
 		JArrayHelper::toInteger($song_id);
 		JArrayHelper::toInteger($order);

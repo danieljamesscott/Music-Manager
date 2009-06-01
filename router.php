@@ -18,7 +18,12 @@ function MusicBuildRoute(&$query) {
     $segments[] = $query['view'];
     unset ($query['view']);
   }
-  
+
+  if (isset($query['cid'])) {
+    $segments[] = $query['cid'];
+    unset ($query['cid']);
+  }
+
   if (isset($query['artist_id'])) {
     $segments[] = $query['artist_id'];
     unset ($query['artist_id']);
@@ -28,7 +33,7 @@ function MusicBuildRoute(&$query) {
     $segments[] = $query['album_id'];
     unset ($query['album_id']);
   }
-  
+
   if (isset($query['song_id'])) {
     $segments[] = $query['song_id'];
     unset ($query['song_id']);
@@ -43,9 +48,11 @@ function MusicParseRoute($segments) {
   switch($vars['view']) {
   case 'album':
     $vars['album_id'] = $segments[1];
+    $vars['cid'] = $segments[1];
     break;
-  case 'album':
+  case 'artist':
     $vars['artist_id'] = $segments[1];
+    $vars['cid'] = $segments[1];
     break;
   }
   return $vars;
