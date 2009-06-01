@@ -91,7 +91,7 @@ class MusicViewAlbum extends JView
 
       // Wrap the mp3 name in {$player_plugin $player_plugin_options}{/$player_plugin} tags for plugin.
       if ($song->mp3 != '') {
-	$song->plugin_code = JHTML::_('content.prepare',"{" . $pparams->player_plugin . " " . $pparams->player_plugin_options . "}images/songs/" . $song->mp3 . "{/" . $pparams->player_plugin . "}");
+	$song->plugin_code = JHTML::_('content.prepare',"{" . $pparams->get('player_plugin') . " " . $pparams->get('player_plugin_options') . "}images/songs/" . $song->mp3 . "{/" . $pparams->get('player_plugin') . "}");
       } else {
 	$song->plugin_code = '';
       }
@@ -119,7 +119,6 @@ class MusicViewAlbum extends JView
     $this->assignRef('pagination',	$pagination);
     $this->assignRef('album',		$album);
     $this->assignRef('params',		$pparams);
-		
     $this->assign('action',		$uri->toString());
 
     parent::display($tpl);

@@ -13,11 +13,7 @@
       <option value="0">Hide</option>
       <option value="1">Show</option>
     </param>
-    <param name="player_plugin" type="text" default="play"
-           label="Plugin code for the MP3 player" description="The
-           plugin code used to wrap the MP3 filename">
-    <param name="player_plugin_options" type="text" default=""
-           label="Plugin options for the MP3 player" description="The
-           plugin options used in the MP3 player">
+    <param name="player_plugin" type="text" default="play" label="Plugin code for the MP3 player" description="The plugin code used to wrap the MP3 filename" />
+    <param name="player_plugin_options" type="text" default="" label="Plugin options for the MP3 player" description="The plugin options used in the MP3 player" />
   </params>
 </root>
