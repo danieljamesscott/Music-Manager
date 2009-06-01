@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	Music
- * @subpackage	Album
+ * @subpackage	Artist
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
  * @copyright	Copyright (C) 2009 Daniel Scott (http://danieljamesscott.org). All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
@@ -19,9 +19,8 @@ jimport('joomla.application.component.view');
 
 /**
  * @package		Joomla
- * @subpackage	Songs
  */
-class MusicViewAlbum extends JView
+class MusicViewArtist extends JView
 {
   function display($tpl = null)
   {
@@ -35,25 +34,25 @@ class MusicViewAlbum extends JView
     $pparams = &JComponentHelper::getParams('com_music');
 
     // Selected Request vars
-    $albumId		= JRequest::getVar('album_id',0,'', 'int');
+    $artistId		= JRequest::getVar('artist_id',0,'', 'int');
     $limit		= JRequest::getVar('limit',$mainframe->getCfg('list_limit'),'', 'int');
     $limitstart		= JRequest::getVar('limitstart',0,'', 'int');
     $filter_order	= JRequest::getVar('filter_order','cd.ordering','', 'cmd');
     $filter_order_Dir	= JRequest::getVar('filter_order_Dir','ASC','','word');
 
     // query options
-    $options['album_id']	= $albumId;
+    $options['artist_id']	= $artistId;
     $options['limit']		= $limit;
     $options['limitstart']	= $limitstart;
     $options['order by']	= "$filter_order $filter_order_Dir, cd.ordering";
 
-    $albums = $model->getAlbums( $options );
-    // Search using ID, so should only be one album returned
-    $album =& $albums[0];
+    $artists = $model->getArtists( $options );
+    // Search using ID, so should only be one artist returned
+    $artist =& $artists[0];
 
     // Add in specific parameters
-    $album->params = new JParameter($album->params);
-    $pparams->merge($album->params);
+    $artist->params = new JParameter($artist->params);
+    $pparams->merge($artist->params);
 
     // Get the parameters of the active menu item
     $menus = &JSite::getMenu();
@@ -63,43 +62,33 @@ class MusicViewAlbum extends JView
       $menu_params = new JParameter( $menu->params );
       $pparams->merge($menu_params);
       if (!$menu_params->get('page_title')) {
-	$pparams->set('page_title', $album->name);
+	$pparams->set('page_title', $artist->name);
       }
     } else {
-      $pparams->set('page_title', $album->name);
+      $pparams->set('page_title', $artist->name);
     }      
 
     // Set the page title and pathway
     if ($pparams->get('page_title')) {
-      // Add the album breadcrumbs item
+      // Add the artist breadcrumbs item
       $document->setTitle(JText::_('Music').' - '.$pparams->get('page_title'));
     } else {
       $document->setTitle(JText::_('Music'));
     }
 
-    $songs = $model->getSongs( $options );
-    $total = $model->getSongCount( $options );
+    $albums = $model->getAlbums( $options );
+    $total = $model->getAlbumCount( $options );
 
-    //prepare songs
+    //prepare albums
     $k = 0;
-    for($i = 0; $i <  count( $songs ); $i++) {
-      $song =& $songs[$i];
-      //			$song->link	   = JRoute::_('index.php?option=com_music&view=song&id='.$song->slug);
-      $song->odd   = $k;
-      $song->count = $i;
-      $k = 1 - $k;
-
-      // Wrap the mp3 name in {play}{/play} tags for plugin.
-      if ($song->mp3 != '') {
-	$song->plugin_code = JHTML::_('content.prepare',"{play}images/songs/" . $song->mp3 . "{/play}");
-      } else {
-	$song->plugin_code = '';
-      }
+    for($i = 0; $i <  count( $albums ); $i++) {
+	$albums[$i]->album_link = JRoute::_('index.php?option=com_music&view=album&album_id=' . $albums[$i]->id);
+	$albums[$i]->album_name = $albums[$i]->name;
     }
 
-    if ($album == null) {
+    if ($artist == null) {
       $db = &JFactory::getDBO();
-      $album =& JTable::getInstance( 'album' );
+      $artist =& JTable::getInstance( 'artist' );
     }
 
     // table ordering
@@ -114,10 +103,10 @@ class MusicViewAlbum extends JView
     jimport('joomla.html.pagination');
     $pagination = new JPagination($total, $limitstart, $limit);
 
-    $this->assignRef('items',		$songs);
+    $this->assignRef('items',		$albums);
     $this->assignRef('lists',		$lists);
     $this->assignRef('pagination',	$pagination);
-    $this->assignRef('album',		$album);
+    $this->assignRef('artist',		$artist);
     $this->assignRef('params',		$pparams);
 		
     $this->assign('action',		$uri->toString());

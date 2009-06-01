@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+  <layout title="Music Artist Layout">
+    <message>
+      <![CDATA[MUSIC ARTIST LAYOUT DESC]]>
+    </message>
+  </layout>
+  <state>
+    <name>Music Artist Layout</name>
+    <description>MUSIC ARTIST LAYOUT DESC</description>
+    <url addpath="/administrator/components/com_music/elements">
+      <param name="artist_id" type="artist" scope="com_music" default="0" label="Select Artist" description="A music artist" />
+    </url>
+  </state>
+</metadata>

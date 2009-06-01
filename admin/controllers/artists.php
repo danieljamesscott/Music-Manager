@@ -55,8 +55,8 @@ class MusicControllerArtists extends JController
 	function save()
 	{
 		$post	= JRequest::get('post');
-		$cid	= JRequest::getVar( 'cid', array(0), 'post', 'array' );
-		$post['id'] = (int) $cid[0];
+		$artist_id	= JRequest::getVar( 'artist_id', array(0), 'post', 'array' );
+		$post['id'] = (int) $artist_id[0];
 
 		$model = $this->getModel('artist');
 
@@ -76,15 +76,15 @@ class MusicControllerArtists extends JController
 	{
 		global $mainframe;
 
-		$cid = JRequest::getVar( 'cid', array(), 'post', 'array' );
-		JArrayHelper::toInteger($cid);
+		$artist_id = JRequest::getVar( 'artist_id', array(), 'post', 'array' );
+		JArrayHelper::toInteger($artist_id);
 
-		if (count( $cid ) < 1) {
+		if (count( $artist_id ) < 1) {
 			JError::raiseError(500, JText::_( 'Select an item to delete' ) );
 		}
 
 		$model = $this->getModel('artist');
-		if(!$model->delete($cid)) {
+		if(!$model->delete($artist_id)) {
 			echo "<script> alert('".$model->getError(true)."'); window.history.go(-1); </script>\n";
 		}
 
@@ -96,15 +96,15 @@ class MusicControllerArtists extends JController
 	{
 		global $mainframe;
 
-		$cid = JRequest::getVar( 'cid', array(), 'post', 'array' );
-		JArrayHelper::toInteger($cid);
+		$artist_id = JRequest::getVar( 'artist_id', array(), 'post', 'array' );
+		JArrayHelper::toInteger($artist_id);
 
-		if (count( $cid ) < 1) {
+		if (count( $artist_id ) < 1) {
 			JError::raiseError(500, JText::_( 'Select an item to publish' ) );
 		}
 
 		$model = $this->getModel('artist');
-		if(!$model->publish($cid, 1)) {
+		if(!$model->publish($artist_id, 1)) {
 			echo "<script> alert('".$model->getError(true)."'); window.history.go(-1); </script>\n";
 		}
 
@@ -116,15 +116,15 @@ class MusicControllerArtists extends JController
 	{
 		global $mainframe;
 
-		$cid = JRequest::getVar( 'cid', array(), 'post', 'array' );
-		JArrayHelper::toInteger($cid);
+		$artist_id = JRequest::getVar( 'artist_id', array(), 'post', 'array' );
+		JArrayHelper::toInteger($artist_id);
 
-		if (count( $cid ) < 1) {
+		if (count( $artist_id ) < 1) {
 			JError::raiseError(500, JText::_( 'Select an item to unpublish' ) );
 		}
 
 		$model = $this->getModel('artist');
-		if(!$model->publish($cid, 0)) {
+		if(!$model->publish($artist_id, 0)) {
 			echo "<script> alert('".$model->getError(true)."'); window.history.go(-1); </script>\n";
 		}
 
@@ -159,13 +159,13 @@ class MusicControllerArtists extends JController
 
 	function saveorder()
 	{
-		$cid 	= JRequest::getVar( 'cid', array(), 'post', 'array' );
+		$artist_id 	= JRequest::getVar( 'artist_id', array(), 'post', 'array' );
 		$order 	= JRequest::getVar( 'order', array(), 'post', 'array' );
-		JArrayHelper::toInteger($cid);
+		JArrayHelper::toInteger($artist_id);
 		JArrayHelper::toInteger($order);
 
 		$model = $this->getModel('artist');
-		$model->saveorder($cid, $order);
+		$model->saveorder($artist_id, $order);
 
 		$msg = 'New ordering saved';
 		$this->setRedirect( 'index.php?option=com_music&c=artists', $msg );

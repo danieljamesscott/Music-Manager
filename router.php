@@ -1,70 +1,52 @@
 <?php
 /**
-* @package     Music
-* @copyright   Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
-* @copyright   Copyright (C) 2009 Daniel Scott (http://danieljamesscott.org). All rights reserved. 
-* @license		GNU/GPL, see LICENSE.php
-* Joomla! is free software. This version may have been modified pursuant
-* to the GNU General Public License, and as distributed it includes or
-* is derivative of works licensed under the GNU General Public License or
-* other free or open source software licenses.
-* See COPYRIGHT.php for copyright notices and details.
-*/
+ * @package	Music
+ * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2009 Daniel Scott (http://danieljamesscott.org). All rights reserved.
+ * @license	GNU/GPL, see LICENSE.php
+ * Joomla! is free software. This version may have been modified pursuant
+ * to the GNU General Public License, and as distributed it includes or
+ * is derivative of works licensed under the GNU General Public License or
+ * other free or open source software licenses.
+ * See COPYRIGHT.php for copyright notices and details.
+ */
 
-function MusicBuildRoute(&$query)
-{
-	$segments = array();
+function MusicBuildRoute(&$query) {
+  $segments	= array();
 
-	if(isset($query['view'])) 
-	{
-		if(empty($query['Itemid'])) {
-			$segments[] = $query['view'];
-		} 
-		
-		unset($query['view']);
-	};
-	
-	if(isset($query['id']))
-	{
-	  $segments[] = $query['id'];
-	  unset($query['id']);
-	};
-	
-        if(isset($query['layout']))
-        {
-	  $segments[] = $query['layout'];
-          unset($query['layout']);
-        };
-	return $segments;
+  if (isset($query['view'])) {
+    $segments[] = $query['view'];
+    unset ($query['view']);
+  }
+  
+  if (isset($query['artist_id'])) {
+    $segments[] = $query['artist_id'];
+    unset ($query['artist_id']);
+  }
+
+  if (isset($query['album_id'])) {
+    $segments[] = $query['album_id'];
+    unset ($query['album_id']);
+  }
+  
+  if (isset($query['song_id'])) {
+    $segments[] = $query['song_id'];
+    unset ($query['song_id']);
+  }
+  return $segments;
 }
 
-function MusicParseRoute($segments)
-{
-	$vars = array();
+function MusicParseRoute($segments) {
+  $vars	= array();
 
-	//Get the active menu item
-	$menu =& JSite::getMenu();
-	$item =& $menu->getActive();
-
-	// Count route segments
-	$count = count($segments);
-	
-	//Standard routing for articles
-	if(!isset($item)) 
-	{
-		$vars['id']    = $segments[$count - 1];
-		return $vars;
-	}
-
-	//Handle View and Identifier
-	switch($item->query['view'])
-	{
-		case 'album'   :
-		{
-			$vars['id']   = $segments[$count-1];
-
-		} break;
-	}
-
-	return $vars;
+  $vars['view'] = $segments[0];
+  switch($vars['view']) {
+  case 'album':
+    $vars['album_id'] = $segments[1];
+    break;
+  case 'album':
+    $vars['artist_id'] = $segments[1];
+    break;
+  }
+  return $vars;
 }

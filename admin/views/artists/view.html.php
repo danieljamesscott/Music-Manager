@@ -24,43 +24,41 @@ jimport( 'joomla.application.component.view');
  * @subpackage	Artist
  * @since 1.0
  */
-class MusicViewArtists extends JView
-{
-	function display($tpl = null)
-	{
-	  $model =& $this->getModel();
-		global $mainframe, $option;
+class MusicViewArtists extends JView {
+  function display($tpl = null) {
+    $model =& $this->getModel();
+    global $mainframe, $option;
 
-		$db		=& JFactory::getDBO();
-		$uri	=& JFactory::getURI();
+    $db		=& JFactory::getDBO();
+    $uri	=& JFactory::getURI();
 
-		$filter_state		= $mainframe->getUserStateFromRequest( $option.'filter_state',		'filter_state',		'',				'word' );
-		$filter_order		= $mainframe->getUserStateFromRequest( $option.'filter_order',		'filter_order',		'a.ordering',	'cmd' );
-		$filter_order_Dir	= $mainframe->getUserStateFromRequest( $option.'filter_order_Dir',	'filter_order_Dir',	'',				'word' );
-		$search				= $mainframe->getUserStateFromRequest( $option.'search',			'search',			'',				'string' );
-		$search				= JString::strtolower( $search );
+    $filter_state	= $mainframe->getUserStateFromRequest( $option.'filter_state',		'filter_state',	'',		'word' );
+    $filter_order	= $mainframe->getUserStateFromRequest( $option.'filter_order',		'filter_order',	'a.ordering',	'cmd' );
+    $filter_order_Dir	= $mainframe->getUserStateFromRequest( $option.'filter_order_Dir',	'filter_order_Dir',	'',	'word' );
+    $search		= $mainframe->getUserStateFromRequest( $option.'search','search','','string' );
+    $search		= JString::strtolower( $search );
 
-		// Get data from the model
-		$items		= & $this->get( 'Data');
-		$total		= & $this->get( 'Total');
-		$pagination = & $this->get( 'Pagination' );
+    // Get data from the model
+    $items		= & $this->get( 'Data');
+    $total		= & $this->get( 'Total');
+    $pagination = & $this->get( 'Pagination' );
 
-		// state filter
-		$lists['state']	= JHTML::_('grid.state',  $filter_state );
+    // state filter
+    $lists['state']	= JHTML::_('grid.state',  $filter_state );
 
-		// table ordering
-		$lists['order_Dir'] = $filter_order_Dir;
-		$lists['order'] = $filter_order;
+    // table ordering
+    $lists['order_Dir'] = $filter_order_Dir;
+    $lists['order'] = $filter_order;
 
-		// search filter
-		$lists['search']= $search;
+    // search filter
+    $lists['search']= $search;
 
-		$this->assignRef('user',		JFactory::getUser());
-		$this->assignRef('lists',		$lists);
-		$this->assignRef('items',		$items);
-		$this->assignRef('pagination',	$pagination);
+    $this->assignRef('user',		JFactory::getUser());
+    $this->assignRef('lists',		$lists);
+    $this->assignRef('items',		$items);
+    $this->assignRef('pagination',	$pagination);
 		
-		parent::display($tpl);
-	}
+    parent::display($tpl);
+  }
 }
 ?>

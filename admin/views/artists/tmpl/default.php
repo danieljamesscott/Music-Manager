@@ -80,7 +80,7 @@
 	{
 		$row = &$this->items[$i];
 
-				$link 	= JRoute::_( 'index.php?option=com_music&c=artists&task=edit&cid[]='. $row->id );
+				$link 	= JRoute::_( 'index.php?option=com_music&c=artists&task=edit&artist_id[]='. $row->id );
 
 				$checked 	= JHTML::_('grid.checkedout',   $row, $i );
 				$published 	= JHTML::_('grid.published', $row, $i );

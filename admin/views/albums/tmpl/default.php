@@ -85,14 +85,14 @@
 	for ($i=0, $n=count( $this->items ); $i < $n; $i++)
 	{
 		$row = &$this->items[$i];
-		$link 	= JRoute::_( 'index.php?option=com_music&c=albums&task=edit&cid[]='. $row->id );
+		$link 	= JRoute::_( 'index.php?option=com_music&c=albums&task=edit&album_id[]='. $row->id );
 
 		$checked 	= JHTML::_('grid.checkedout',   $row, $i );
 		$published 	= JHTML::_('grid.published', $row, $i );
 
 		$ordering = ($this->lists['order'] == 'a.ordering');
 
-		$row->artist_link	= JRoute::_( 'index.php?option=com_music&c=artists&cid[]='. $row->artistid );
+		$row->artist_link	= JRoute::_( 'index.php?option=com_music&c=artists&artist_id[]='. $row->artistid );
 		  ?>
 		  <tr class="<?php echo "row$k"; ?>">
 					<td>

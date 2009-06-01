@@ -108,6 +108,16 @@
 				<legend><?php echo JText::_( 'Information' ); ?></legend>
 
 				<table class="admintable">
+					<tr>
+						<td class="key">
+							<label>
+								<?php echo JText::_( 'Biography' ); ?>:
+							</label>
+						</td>
+						<td>
+							<textarea class="text_area" cols="44" rows="9" name="description" id="description"><?php echo $this->artist->description; ?></textarea>
+						</td>
+					</tr>
 				</table>
 			</fieldset>
 
@@ -140,6 +150,6 @@
 
 <input type="hidden" name="option" value="com_music" />
 <input type="hidden" name="c" value="artists" />
-<input type="hidden" name="cid[]" value="<?php echo $this->artist->id; ?>" />
+<input type="hidden" name="artist_id[]" value="<?php echo $this->artist->id; ?>" />
 <input type="hidden" name="task" value="" />
 </form>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <params>
+    <param name="show_picture" type="radio" default="1" label="Show artist's picture" description="Show/Hide the artist's picture">
+      <option value="0">Hide</option>
+      <option value="1">Show</option>
+    </param>
+  </params>
+</root>

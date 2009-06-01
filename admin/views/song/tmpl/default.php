@@ -170,6 +170,6 @@
 <div class="clr"></div>
 
 <input type="hidden" name="option" value="com_music" />
-<input type="hidden" name="cid[]" value="<?php echo $this->song->id; ?>" />
+<input type="hidden" name="song_id[]" value="<?php echo $this->song->id; ?>" />
 <input type="hidden" name="task" value="" />
 </form>

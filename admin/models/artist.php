@@ -32,7 +32,7 @@ class MusicModelArtist extends JModel
 	{
 		parent::__construct();
 
-		$array = JRequest::getVar('cid', array(0), '', 'array');
+		$array = JRequest::getVar('artist_id', array(0), '', 'array');
 		$edit	= JRequest::getVar('edit',true);
 		if($edit)
 			$this->setId((int)$array[0]);
@@ -187,16 +187,16 @@ class MusicModelArtist extends JModel
 	 * @return	boolean	True on success
 	 * @since	1.5
 	 */
-	function delete($cid = array())
+	function delete($artist_id = array())
 	{
 		$result = false;
 
-		if (count( $cid ))
+		if (count( $artist_id ))
 		{
-			JArrayHelper::toInteger($cid);
-			$cids = implode( ',', $cid );
+			JArrayHelper::toInteger($artist_id);
+			$artist_ids = implode( ',', $artist_id );
 			$query = 'DELETE FROM #__artists'
-				. ' WHERE id IN ( '.$cids.' )';
+				. ' WHERE id IN ( '.$artist_ids.' )';
 			$this->_db->setQuery( $query );
 			if(!$this->_db->query()) {
 				$this->setError($this->_db->getErrorMsg());
@@ -214,18 +214,18 @@ class MusicModelArtist extends JModel
 	 * @return	boolean	True on success
 	 * @since	1.5
 	 */
-	function publish($cid = array(), $publish = 1)
+	function publish($artist_id = array(), $publish = 1)
 	{
 		$user 	=& JFactory::getUser();
 
-		if (count( $cid ))
+		if (count( $artist_id ))
 		{
-			JArrayHelper::toInteger($cid);
-			$cids = implode( ',', $cid );
+			JArrayHelper::toInteger($artist_id);
+			$artist_ids = implode( ',', $artist_id );
 
 			$query = 'UPDATE #__artists'
 				. ' SET published = '.(int) $publish
-				. ' WHERE id IN ( '.$cids.' )'
+				. ' WHERE id IN ( '.$artist_ids.' )'
 				. ' AND ( checked_out = 0 OR ( checked_out = '.(int) $user->get('id').' ) )'
 			;
 			$this->_db->setQuery( $query );
@@ -267,15 +267,15 @@ class MusicModelArtist extends JModel
 	 * @return	boolean	True on success
 	 * @since	1.5
 	 */
-	function saveorder($cid = array(), $order)
+	function saveorder($artist_id = array(), $order)
 	{
 		$row =& $this->getTable();
 		$groupings = array();
 
 		// update ordering values
-		for( $i=0; $i < count($cid); $i++ )
+		for( $i=0; $i < count($artist_id); $i++ )
 		{
-			$row->load( (int) $cid[$i] );
+			$row->load( (int) $artist_id[$i] );
 			// track artists
 			$groupings[] = $row->id;
 
@@ -339,6 +339,7 @@ class MusicModelArtist extends JModel
 			$artist->id				= 0;
 			$artist->name				= null;
 			$artist->alias				= null;
+			$artist->description			= null;
 
 			// Artist fields
 

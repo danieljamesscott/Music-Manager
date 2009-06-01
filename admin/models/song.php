@@ -32,7 +32,7 @@ class MusicModelSong extends JModel
 	{
 		parent::__construct();
 
-		$array = JRequest::getVar('cid', array(0), '', 'array');
+		$array = JRequest::getVar('song_id', array(0), '', 'array');
 		$edit	= JRequest::getVar('edit',true);
 		if($edit)
 			$this->setId((int)$array[0]);
@@ -195,16 +195,16 @@ class MusicModelSong extends JModel
 	 * @return	boolean	True on success
 	 * @since	1.5
 	 */
-	function delete($cid = array())
+	function delete($song_id = array())
 	{
 		$result = false;
 
-		if (count( $cid ))
+		if (count( $song_id ))
 		{
-			JArrayHelper::toInteger($cid);
-			$cids = implode( ',', $cid );
+			JArrayHelper::toInteger($song_id);
+			$song_ids = implode( ',', $song_id );
 			$query = 'DELETE FROM #__songs'
-				. ' WHERE id IN ( '.$cids.' )';
+				. ' WHERE id IN ( '.$song_ids.' )';
 			$this->_db->setQuery( $query );
 			if(!$this->_db->query()) {
 				$this->setError($this->_db->getErrorMsg());
@@ -222,18 +222,18 @@ class MusicModelSong extends JModel
 	 * @return	boolean	True on success
 	 * @since	1.5
 	 */
-	function publish($cid = array(), $publish = 1)
+	function publish($song_id = array(), $publish = 1)
 	{
 		$user 	=& JFactory::getUser();
 
-		if (count( $cid ))
+		if (count( $song_id ))
 		{
-			JArrayHelper::toInteger($cid);
-			$cids = implode( ',', $cid );
+			JArrayHelper::toInteger($song_id);
+			$song_ids = implode( ',', $song_id );
 
 			$query = 'UPDATE #__songs'
 				. ' SET published = '.(int) $publish
-				. ' WHERE id IN ( '.$cids.' )'
+				. ' WHERE id IN ( '.$song_ids.' )'
 				. ' AND ( checked_out = 0 OR ( checked_out = '.(int) $user->get('id').' ) )'
 			;
 			$this->_db->setQuery( $query );
@@ -276,15 +276,15 @@ class MusicModelSong extends JModel
 	 * @return	boolean	True on success
 	 * @since	1.5
 	 */
-	function saveorder($cid = array(), $order)
+	function saveorder($song_id = array(), $order)
 	{
 		$row =& $this->getTable();
 		$groupings = array();
 
 		// update ordering values
-		for( $i=0; $i < count($cid); $i++ )
+		for( $i=0; $i < count($song_id); $i++ )
 		{
-			$row->load( (int) $cid[$i] );
+			$row->load( (int) $song_id[$i] );
 			// track albums
 			$groupings[] = $row->albumid;
 

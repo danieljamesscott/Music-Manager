@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	Music
- * @subpackage	Album
+ * @subpackage	Artist
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
  * @copyright   Copyright (C) 2009 Daniel Scott (http://danieljamesscott.org). All rights reserved. 
  * @license		GNU/GPL, see LICENSE.php
@@ -19,31 +19,28 @@ jimport('joomla.application.component.model');
 
 /**
  * @package		Joomla
- * @subpackage	Song
  */
-class MusicModelAlbum extends JModel
+class MusicModelArtist extends JModel
 {
 	/**
-	 * Builds the query to select albums
+	 * Builds the query to select artists
 	 * @param array
 	 * @return string
 	 * @access protected
 	 */
-	function _getAlbumsQuery( &$options )
+	function _getArtistsQuery( &$options )
 	{
 		// TODO: Cache on the fingerprint of the arguments
 		$db		=& JFactory::getDBO();
 		// aid?
 		$aid	= @$options['aid'];
 
-		// a. = song table
-		$wheres[] = 'a.published = 1';
+		// ar. = album table
 		$wheres[] = 'cc.published = 1';
-		$wheres[] = 'cc.id = ' . @$options['album_id'];
+		$wheres[] = 'cc.id = ' . @$options['artist_id'];
 
 		if ($aid !== null)
 		{
-			$wheres[] = 'a.access <= ' . (int) $aid;
 			$wheres[] = 'cc.access <= ' . (int) $aid;
 		}
 
@@ -51,12 +48,10 @@ class MusicModelAlbum extends JModel
 		$orderBy	= 'cc.ordering' ;
 
 		/*
-		 * Query to retrieve all albums that are published.
+		 * Query to retrieve all artists that are published.
 		 */
-		$query = 'SELECT cc.*, COUNT( a.id ) AS numlinks, a.id as song_id'.
-				' FROM #__albums AS cc'.
-				' LEFT JOIN #__songs AS a ON a.albumid = cc.id'.
-				' LEFT JOIN #__artists AS ar ON ar.id = cc.artistid'.
+		$query = 'SELECT cc.*'.
+				' FROM #__artists AS cc'.
 				' WHERE ' . implode( ' AND ', $wheres ) .
 				' GROUP BY ' . $groupBy .
 				' ORDER BY ' . $orderBy;
@@ -66,30 +61,30 @@ class MusicModelAlbum extends JModel
 	}
 
 	/**
-	 * Builds the query to select song items
+	 * Builds the query to select album items
 	 * @param array
 	 * @return string
 	 * @access protected
 	 */
-	function _getSongsQuery( &$options )
+	function _getAlbumsQuery( &$options )
 	{
 		// TODO: Cache on the fingerprint of the arguments
 		$db		=& JFactory::getDBO();
 		$aid		= @$options['aid'];
-		$albumID	= @$options['album_id'];
+		$artistID	= @$options['artist_id'];
 		$groupBy	= @$options['group by'];
 		$orderBy	= @$options['order by'];
 
 		$select = 'cd.*, ' .
-				'cc.name AS album_name, cc.description,'.
+				'cc.name AS artist_name, cc.description,'.
 				' CASE WHEN CHAR_LENGTH(cd.alias) THEN CONCAT_WS(\':\', cd.id, cd.alias) ELSE cd.id END as slug ';
-		$from	= '#__songs AS cd';
+		$from	= '#__albums AS cd';
 
-		$joins[] = 'INNER JOIN #__albums AS cc on cd.albumid = cc.id';
+		$joins[] = 'INNER JOIN #__artists AS cc on cd.artistid = cc.id';
 
 		$wheres[] = 'cc.published = 1';
 		$wheres[] = 'cd.published = 1';
-		$wheres[] = 'cc.id = ' . @$options['album_id'];
+		$wheres[] = 'cc.id = ' . @$options['artist_id'];
 
 		if ($aid !== null)
 		{
@@ -98,7 +93,7 @@ class MusicModelAlbum extends JModel
 		}
 
 		/*
-		 * Query to retrieve all songs under the songs
+		 * Query to retrieve all albums under the albums
 		 * section and that are published.
 		 */
 		$query = 'SELECT ' . $select .
@@ -109,6 +104,28 @@ class MusicModelAlbum extends JModel
 				($orderBy ? ' ORDER BY ' . $orderBy : '');
 
 		return $query;
+	}
+
+	/**
+	 * Gets a list of artists
+	 * @param array
+	 * @return array
+	 */
+	function getArtists( $options=array() )
+	{
+		$query	= $this->_getArtistsQuery( $options );
+		return $this->_getList( $query, @$options['limitstart'], @$options['limit'] );
+	}
+
+	/**
+	 * Gets the count of the artists for the given options
+	 * @param array
+	 * @return int
+	 */
+	function getArtistCount( $options=array() )
+	{
+		$query	= $this->_getArtistQuery( $options );
+		return $this->_getListCount( $query );
 	}
 
 	/**
@@ -129,29 +146,7 @@ class MusicModelAlbum extends JModel
 	 */
 	function getAlbumCount( $options=array() )
 	{
-		$query	= $this->_getAlbumQuery( $options );
-		return $this->_getListCount( $query );
-	}
-
-	/**
-	 * Gets a list of songs
-	 * @param array
-	 * @return array
-	 */
-	function getSongs( $options=array() )
-	{
-		$query	= $this->_getSongsQuery( $options );
-		return $this->_getList( $query, @$options['limitstart'], @$options['limit'] );
-	}
-
-	/**
-	 * Gets the count of the songs for the given options
-	 * @param array
-	 * @return int
-	 */
-	function getSongCount( $options=array() )
-	{
-		$query	= $this->_getSongsQuery( $options );
+		$query	= $this->_getAlbumsQuery( $options );
 		return $this->_getListCount( $query );
 	}
 }

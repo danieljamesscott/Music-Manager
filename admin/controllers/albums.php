@@ -55,8 +55,8 @@ class MusicControllerAlbums extends JController
 	function save()
 	{
 		$post	= JRequest::get('post');
-		$cid	= JRequest::getVar( 'cid', array(0), 'post', 'array' );
-		$post['id'] = (int) $cid[0];
+		$album_id	= JRequest::getVar( 'album_id', array(0), 'post', 'array' );
+		$post['id'] = (int) $album_id[0];
 
 		$model = $this->getModel('album');
 
@@ -76,15 +76,15 @@ class MusicControllerAlbums extends JController
 	{
 		global $mainframe;
 
-		$cid = JRequest::getVar( 'cid', array(), 'post', 'array' );
-		JArrayHelper::toInteger($cid);
+		$album_id = JRequest::getVar( 'album_id', array(), 'post', 'array' );
+		JArrayHelper::toInteger($album_id);
 
-		if (count( $cid ) < 1) {
+		if (count( $album_id ) < 1) {
 			JError::raiseError(500, JText::_( 'Select an item to delete' ) );
 		}
 
 		$model = $this->getModel('album');
-		if(!$model->delete($cid)) {
+		if(!$model->delete($album_id)) {
 			echo "<script> alert('".$model->getError(true)."'); window.history.go(-1); </script>\n";
 		}
 
@@ -96,15 +96,15 @@ class MusicControllerAlbums extends JController
 	{
 		global $mainframe;
 
-		$cid = JRequest::getVar( 'cid', array(), 'post', 'array' );
-		JArrayHelper::toInteger($cid);
+		$album_id = JRequest::getVar( 'album_id', array(), 'post', 'array' );
+		JArrayHelper::toInteger($album_id);
 
-		if (count( $cid ) < 1) {
+		if (count( $album_id ) < 1) {
 			JError::raiseError(500, JText::_( 'Select an item to publish' ) );
 		}
 
 		$model = $this->getModel('album');
-		if(!$model->publish($cid, 1)) {
+		if(!$model->publish($album_id, 1)) {
 			echo "<script> alert('".$model->getError(true)."'); window.history.go(-1); </script>\n";
 		}
 
@@ -116,15 +116,15 @@ class MusicControllerAlbums extends JController
 	{
 		global $mainframe;
 
-		$cid = JRequest::getVar( 'cid', array(), 'post', 'array' );
-		JArrayHelper::toInteger($cid);
+		$album_id = JRequest::getVar( 'album_id', array(), 'post', 'array' );
+		JArrayHelper::toInteger($album_id);
 
-		if (count( $cid ) < 1) {
+		if (count( $album_id ) < 1) {
 			JError::raiseError(500, JText::_( 'Select an item to unpublish' ) );
 		}
 
 		$model = $this->getModel('album');
-		if(!$model->publish($cid, 0)) {
+		if(!$model->publish($album_id, 0)) {
 			echo "<script> alert('".$model->getError(true)."'); window.history.go(-1); </script>\n";
 		}
 
@@ -159,13 +159,13 @@ class MusicControllerAlbums extends JController
 
 	function saveorder()
 	{
-		$cid 	= JRequest::getVar( 'cid', array(), 'post', 'array' );
+		$album_id 	= JRequest::getVar( 'album_id', array(), 'post', 'array' );
 		$order 	= JRequest::getVar( 'order', array(), 'post', 'array' );
-		JArrayHelper::toInteger($cid);
+		JArrayHelper::toInteger($album_id);
 		JArrayHelper::toInteger($order);
 
 		$model = $this->getModel('album');
-		$model->saveorder($cid, $order);
+		$model->saveorder($album_id, $order);
 
 		$msg = 'New ordering saved';
 		$this->setRedirect( 'index.php?option=com_music&c=albums', $msg );

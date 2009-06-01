@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-	<params>
-		<param name="show_albumart_front" type="radio" default="1" label="Show front albumart" description="Show/Hide the front albumart below">
-			<option value="0">Hide</option>
-			<option value="1">Show</option>
-		</param>
-		<param name="show_albumart_back" type="radio" default="1" label="Show back albumart" description="Show/Hide the back albumart below">
-			<option value="0">Hide</option>
-			<option value="1">Show</option>
-		</param>
-		<param name="show_player_plugin" type="radio" default="0" label="Show MP3 player" description="Show/Hide the MP3 player">
-			<option value="0">Hide</option>
-			<option value="1">Show</option>
-		</param>
-	</params>
+  <params>
+    <param name="show_albumart_front" type="radio" default="1" label="Show front albumart" description="Show/Hide the front albumart below">
+      <option value="0">Hide</option>
+      <option value="1">Show</option>
+    </param>
+    <param name="show_albumart_back" type="radio" default="1" label="Show back albumart" description="Show/Hide the back albumart below">
+      <option value="0">Hide</option>
+      <option value="1">Show</option>
+    </param>
+    <param name="show_player_plugin" type="radio" default="0" label="Show MP3 player" description="Show/Hide the MP3 player">
+      <option value="0">Hide</option>
+      <option value="1">Show</option>
+    </param>
+  </params>
 </root>
