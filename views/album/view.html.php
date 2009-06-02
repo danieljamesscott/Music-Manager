@@ -89,9 +89,15 @@ class MusicViewAlbum extends JView
       $song->count = $i;
       $k = 1 - $k;
 
+      // Add a ' ' to the options field
+      if ($pparams->get('player_plugin_options') != "") {
+        $pparams->set('player_plugin_options'," " . $pparams->get('player_plugin_options'));
+      }
+
       // Wrap the mp3 name in {$player_plugin $player_plugin_options}{/$player_plugin} tags for plugin.
       if ($song->mp3 != '') {
-	$song->plugin_code = JHTML::_('content.prepare',"{" . $pparams->get('player_plugin') . " " . $pparams->get('player_plugin_options') . "}images/songs/" . $song->mp3 . "{/" . $pparams->get('player_plugin') . "}");
+        // ' ' already added for options above
+	$song->plugin_code = JHTML::_('content.prepare',"{" . $pparams->get('player_plugin') . $pparams->get('player_plugin_options') . "}images/songs/" . $song->mp3 . "{/" . $pparams->get('player_plugin') . "}");
       } else {
 	$song->plugin_code = '';
       }
