@@ -92,7 +92,7 @@
 
 		$ordering = ($this->lists['order'] == 'a.ordering');
 
-		$row->artist_link	= JRoute::_( 'index.php?option=com_music&c=artists&cid[]='. $row->artistid );
+		$row->artist_link	= JRoute::_( 'index.php?option=com_music&c=artists&task=edit&cid[]='. $row->artistid );
 		  ?>
 		  <tr class="<?php echo "row$k"; ?>">
 					<td>
