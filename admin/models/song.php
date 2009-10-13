@@ -3,7 +3,7 @@
  * @package	Music
  * @subpackage	Song
  * @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
- * @copyright   Copyright (C) 2009 Daniel Scott (http://danieljamesscott.org). All rights reserved. 
+ * @copyright   Copyright (C) 2009 Daniel Scott (http://danieljamesscott.org). All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant to the
  * GNU General Public License, and as distributed it includes or is derivative
@@ -168,9 +168,10 @@ class MusicModelSong extends JModel
 		}
 
 		// Make sure that MP3 path is stored correctly in the DB
-		$row->mp3 = JString::str_ireplace("\","/",$row->mp3);
+		$row->mp3 = JPath::clean($row->mp3);
 
 		// if new item, order last in appropriate group
+
 		if (!$row->id) {
 			$where = 'albumid = ' . (int) $row->albumid ;
 			$row->ordering = $row->getNextOrder( $where );

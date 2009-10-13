@@ -72,9 +72,9 @@ class MusicViewAlbum extends JView
     // Set the page title and pathway
     if ($pparams->get('page_title')) {
       // Add the album breadcrumbs item
-      $document->setTitle(JText::_('Music').' - '.$pparams->get('page_title'));
+      $document->setTitle(JText::_('MUSIC').' - '.$pparams->get('page_title'));
     } else {
-      $document->setTitle(JText::_('Music'));
+      $document->setTitle(JText::_('MUSIC'));
     }
 
     $songs = $model->getSongs( $options );

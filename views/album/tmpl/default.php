@@ -27,7 +27,7 @@
 <td align="right">
 <?php if ($this->params->get('show_albumart_front')) { ?>
 <?php if ($this->album->albumart_front == "") {
-  print "No front album art available";
+      print Jtext::_("NOFRARTAVAIL");
 } else { ?>
 <img src="images/albumart/<?php echo $this->album->albumart_front; ?>" align="<?php echo $this->params->get('image_align'); ?>" hspace="6" height="200px" width="200px" alt="<?php echo $this->album->name . ' ' . JText::_( 'Front Albumart' ); ?>" />
 <?php } ?>
@@ -41,7 +41,7 @@
 <td align="right">
 <?php if ($this->params->get('show_albumart_back')) { ?>
 <?php if ($this->album->albumart_back == "") {
-  print "No back album art available";
+      print JText::_('NOBKARTAVAIL');
 } else { ?>
  <img src="images/albumart/<?php echo $this->album->albumart_back; ?>" align="<?php echo $this->params->get('image_align'); ?>" hspace="6" height="200px" width="200px" alt="<?php echo $this->album->name . ' ' . JText::_( 'Back Albumart' ); ?>" />
 <?php } ?>
@@ -52,7 +52,7 @@
 </table>
 
 <br />
-<small>Designed by: <a href="http://danieljamesscott.org">http://danieljamesscott.org</a></small>
+<small><?php echo JText::_('DESIGNEDBY');?><a href="http://danieljamesscott.org">http://danieljamesscott.org</a></small>
 <input type="hidden" name="option" value="com_music" />
 <input type="hidden" name="albumid" value="<?php echo $this->album->id;?>" />
 <input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />

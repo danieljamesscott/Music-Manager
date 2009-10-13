@@ -23,7 +23,7 @@
 <td align="right">
 <?php if ($this->params->get('show_picture')) { ?>
 <?php if ($this->artist->picture == "") {
-  print "No artist picture available";
+      print JText::_('NOPICTUREAVAIL');
 } else { ?>
 <img src="images/artists/<?php echo $this->artist->artist_picture; ?>" hspace="6" height="200px" width="200px" alt="<?php echo $this->artist->name . ' ' . JText::_( 'Picture' ); ?>" />
 <?php } ?>
@@ -40,7 +40,7 @@
 </tbody>
 </table>
 <br />
-<small>Designed by: <a href="http://danieljamesscott.org">http://danieljamesscott.org</a></small>
+    <small><?php echo JText::_('DESIGNEDBY');?><a href="http://danieljamesscott.org">http://danieljamesscott.org</a></small>
 <input type="hidden" name="option" value="com_music" />
 <input type="hidden" name="artistid" value="<?php echo $this->artist->id;?>" />
 <input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />

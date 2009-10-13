@@ -66,7 +66,7 @@ class MusicViewArtist extends JView
       }
     } else {
       $pparams->set('page_title', $artist->name);
-    }      
+    }
 
     // Set the page title and pathway
     if ($pparams->get('page_title')) {
@@ -108,7 +108,7 @@ class MusicViewArtist extends JView
     $this->assignRef('pagination',	$pagination);
     $this->assignRef('artist',		$artist);
     $this->assignRef('params',		$pparams);
-		
+
     $this->assign('action',		$uri->toString());
 
     parent::display($tpl);
