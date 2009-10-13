@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `#__songs` (
   `albumid` int(11) NOT NULL default '0',
   `access` tinyint(3) unsigned NOT NULL default '0',
   `number` int(11) NOT NULL,
-  `mp3` varchar(30) NOT NULL,
+  `mp3` varchar(255) NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `catid` (`albumid`)
 );

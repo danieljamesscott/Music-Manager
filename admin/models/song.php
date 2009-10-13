@@ -167,6 +167,9 @@ class MusicModelSong extends JModel
 			return false;
 		}
 
+		// Make sure that MP3 path is stored correctly in the DB
+		$row->mp3 = JString::str_ireplace("\","/",$row->mp3);
+
 		// if new item, order last in appropriate group
 		if (!$row->id) {
 			$where = 'albumid = ' . (int) $row->albumid ;

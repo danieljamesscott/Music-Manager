@@ -121,6 +121,7 @@ class MusicViewSong extends JView
                 foreach ( $songFiles as $file ) {
                   // Strip off root
                   $file = str_replace(JPATH_ROOT.DS."images".DS."songs".DS, '', $file);
+		  $file = JString::str_ireplace("\","/",$file);
 		  $songs[] = JHTML::_('select.option',  $file );
                 }
                 $lists['mp3'] = JHTML::_('select.genericlist',  $songs, 'mp3', 'class="inputbox" size="1" '. null, 'value', 'text', $song->mp3 );
