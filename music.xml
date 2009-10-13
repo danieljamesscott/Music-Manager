@@ -23,6 +23,10 @@
     </sql>
   </uninstall>
 
+  <languages>
+    <language tag="en-GB">en-GB.com_music.ini</language>
+  </languages>
+
   <files>
     <filename>index.html</filename>
     <filename>controller.php</filename>
