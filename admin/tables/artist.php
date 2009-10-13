@@ -67,6 +67,7 @@ class TableArtist extends JTable
 
   var $name 			= null;
   var $description		= null;
+  var $picture			= null;
 
   // Artist variables
 

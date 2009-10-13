@@ -312,6 +312,7 @@ class MusicModelArtist extends JModel {
       $artist->description			= null;
 
       // Artist fields
+      $artist->picture				= null;
 
       // Required fields
       $artist->published			= 0;

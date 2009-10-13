@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS `#__artists` (
   `ordering` int(11) NOT NULL default '0',
   `access` tinyint(3) unsigned NOT NULL default '0',
   `params` time NOT NULL,
+  `picture` varchar(100) default NULL,
   PRIMARY KEY  (`id`),
   KEY `cat_idx` (`published`,`access`),
   KEY `idx_access` (`access`),

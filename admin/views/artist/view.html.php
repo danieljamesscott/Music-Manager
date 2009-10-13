@@ -96,6 +96,13 @@ class MusicViewArtist extends JView
 		jimport('joomla.filter.output');
 		JFilterOutput::objectHTMLSafe( $artist, ENT_QUOTES, 'description' );
 
+		if ( !JFolder::create(JPATH_ROOT.DS."images".DS."artists") ) {
+		  echo "Failed to create directory images/artists";
+		  $mainframe->close();
+		}
+
+		$lists['artists'] 			= JHTMLList::images('picture', $artist->picture, '', 'images'.DS.'artists' );
+
 		$file 	= JPATH_COMPONENT.DS.'models'.DS.'artist.xml';
 		$params = new JParameter( $artist->params, $file );
 

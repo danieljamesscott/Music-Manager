@@ -118,6 +118,17 @@
 							<textarea class="text_area" cols="44" rows="9" name="description" id="description"><?php echo $this->artist->description; ?></textarea>
 						</td>
 					</tr>
+				<tr>
+					<td class="key">
+						<label for="picture">
+							<?php echo JText::_( 'Picture' ); ?>:
+						</label>
+					</td>
+					<td >
+						<?php echo $this->lists['artists']; ?>
+					</td>
+				</tr>
+
 				</table>
 			</fieldset>
 
