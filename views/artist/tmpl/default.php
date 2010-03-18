@@ -25,7 +25,7 @@
 <?php if ($this->artist->picture == "") {
       print JText::_('NOPICTUREAVAIL');
 } else { ?>
-<img src="images/artists/<?php echo $this->artist->artist_picture; ?>" hspace="6" height="200px" width="200px" alt="<?php echo $this->artist->name . ' ' . JText::_( 'Picture' ); ?>" />
+<img src="images/artists/<?php echo $this->artist->picture; ?>" hspace="6" height="200px" width="200px" alt="<?php echo $this->artist->name . ' ' . JText::_( 'Picture' ); ?>" />
 <?php } ?>
 <?php } ?>
 </td>
