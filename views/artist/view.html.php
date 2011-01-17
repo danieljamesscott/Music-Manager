@@ -79,6 +79,9 @@ class MusicViewArtist extends JView
     $albums = $model->getAlbums( $options );
     $total = $model->getAlbumCount( $options );
 
+    // Clean picture filename
+    $artist->cleaned_picture = JFile::makeSafe($artist->picture);
+
     //prepare albums
     $k = 0;
     for($i = 0; $i <  count( $albums ); $i++) {

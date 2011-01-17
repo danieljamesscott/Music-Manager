@@ -94,10 +94,12 @@ class MusicViewAlbum extends JView
         $pparams->set('player_plugin_options'," " . $pparams->get('player_plugin_options'));
       }
 
+      // Clean song filename
+      $song->cleaned_mp3 = JFile::makeSafe($song->mp3);
       // Wrap the mp3 name in {$player_plugin $player_plugin_options}{/$player_plugin} tags for plugin.
       if ($song->mp3 != '') {
         // ' ' already added for options above
-	$song->plugin_code = JHTML::_('content.prepare',"{" . $pparams->get('player_plugin') . $pparams->get('player_plugin_options') . "}images/songs/" . $song->mp3 . "{/" . $pparams->get('player_plugin') . "}");
+	$song->plugin_code = JHTML::_('content.prepare',"{" . $pparams->get('player_plugin') . $pparams->get('player_plugin_options') . "}images/songs/" . $song->cleaned_mp3 . "{/" . $pparams->get('player_plugin') . "}");
       } else {
 	$song->plugin_code = '';
       }
