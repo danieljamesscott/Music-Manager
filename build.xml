@@ -20,23 +20,7 @@
   </target>
 
   <target name="clean" description="Destroys all generated files and dirs.">
-    <delete file="${cfg.xmlfile}" />
     <delete file="com_music.zip" />
-  </target>
-
-  <target name="build_xml" description="builds an xml listing of all the files in the working copy">
-    <fileset id="site" dir="${cfg.siteFilesDir}" />
-    <echo message="${line.separator}&lt;files folder=&quot;site&quot;&gt;${line.separator}&lt;filename&gt;" file="${cfg.xmlfile}" append="false" />
-    <echo-fileset filesetref="site" />
-    <echo message="&lt;/filename&gt;${line.separator}&lt;/files&gt;${line.separator}" file="${cfg.xmlfile}" append="true" />
-
-    <fileset id="admin" dir="${cfg.adminFilesDir}" />
-    <echo message="${line.separator}&lt;files folder=&quot;admin&quot;&gt;${line.separator}&lt;filename&gt;" file="${cfg.xmlfile}" append="true" />
-    <echo-fileset filesetref="admin" />
-    <echo message="&lt;/filename&gt;${line.separator}&lt;/files&gt;${line.separator}" file="${cfg.xmlfile}" append="true" />
-
-    <replace file="${cfg.xmlfile}" token="${cfg.siteFilesDir}/" value="" />
-    <replace file="${cfg.xmlfile}" token="${cfg.adminFilesDir}/" value="" />
   </target>
 
   <target name="checkphp">

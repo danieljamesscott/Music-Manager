@@ -1,139 +1,66 @@
 <?php
-/**
-* @package     Music
-* @subpackage  Song
-* @copyright   Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
-* @copyright   Copyright (C) 2009 Daniel Scott (http://danieljamesscott.org). All rights reserved. 
-* @license		GNU/GPL, see LICENSE.php
-* Joomla! is free software. This version may have been modified pursuant
-* to the GNU General Public License, and as distributed it includes or
-* is derivative of works licensed under the GNU General Public License or
-* other free or open source software licenses.
-* See COPYRIGHT.php for copyright notices and details.
-*/
+// No direct access to this file
+defined('_JEXEC') or die('Restricted access');
 
-// Check to ensure this file is included in Joomla!
-defined('_JEXEC') or die();
-
-jimport( 'joomla.application.component.view');
+// import Joomla view library
+jimport('joomla.application.component.view');
 
 /**
- * HTML View class for the Song component
- *
- * @package	Music
- * @subpackage	Song
- * @since 1.0
+ * Song View
  */
-class MusicViewSong extends JView
-{
-	function display($tpl = null)
-	{
-		global $mainframe;
+class MusicViewSong extends JView {
+  /**
+   * display method of Song view
+   * @return void
+   */
+  public function display($tpl = null) {
+    // get the Data
+    $form = $this->get('Form');
+    $item = $this->get('Item');
+    $script = $this->get('Script');
 
-		if($this->getLayout() == 'default') {
-			$this->_displayForm($tpl);
-			return;
-		}
+    // Check for errors.
+    if (count($errors = $this->get('Errors'))) {
+      JError::raiseError(500, implode('<br />', $errors));
+      return false;
+    }
+    // Assign the Data
+    $this->form = $form;
+    $this->item = $item;
+    $this->script = $script;
 
-		//get the song
-		$song =& $this->get('data');
+    // Set the toolbar
+    $this->addToolBar();
 
-		if ($song->url) {
-			// redirects to url if matching id found
-			$mainframe->redirect($song->url);
-		}
+    // Display the template
+    parent::display($tpl);
 
-		parent::display($tpl);
-	}
+    // Set the document
+    $this->setDocument();
+  }
 
-	function _displayForm($tpl)
-	{
-		global $mainframe, $option;
+  /**
+   * Setting the toolbar
+   */
+  protected function addToolBar() {
+    JRequest::setVar('hidemainmenu', true);
+    $isNew = ($this->item->id == 0);
+    JToolBarHelper::title($isNew ? JText::_('COM_MUSIC_SONG_NEW') : JText::_('COM_MUSIC_SONG_EDIT'));
+    JToolBarHelper::save('song.save');
+    JToolBarHelper::cancel('song.cancel', $isNew ? 'JTOOLBAR_CANCEL' : 'JTOOLBAR_CLOSE');
+  }
 
-		$db		=& JFactory::getDBO();
-		$uri 	=& JFactory::getURI();
-		$user 	=& JFactory::getUser();
-		$model	=& $this->getModel();
-
-
-		$lists = array();
-
-		//get the song
-		$song	=& $this->get('data');
-
-		$isNew		= ($song->id < 1);
-
-		// fail if checked out not by 'me'
-		if ($model->isCheckedOut( $user->get('id') )) {
-			$msg = JText::sprintf( 'DESCBEINGEDITTED', JText::_( 'The song' ), $song->title );
-			$mainframe->redirect( 'index.php?option='. $option, $msg );
-		}
-
-		// Edit or Create?
-		if (!$isNew)
-		{
-			$model->checkout( $user->get('id') );
-		}
-		else
-		{
-			// initialise new record
-			$song->published = 1;
-			$song->approved 	= 1;
-			$song->order 	= 0;
-			$song->albumid 	= JRequest::getVar( 'albumid', 0, 'post', 'int' );
-		}
-
-		// build the html select list for ordering
-		$query = 'SELECT ordering AS value, name AS text'
-			. ' FROM #__songs'
-			. ' WHERE albumid = ' . (int) $song->albumid
-			. ' ORDER BY ordering';
-
-		$lists['ordering'] 			= JHTML::_('list.specificordering',  $song, $song->id, $query, 1 );
-
-		// build list of albums
-		$db =& JFactory::getDBO();
-		$query = 'SELECT id AS value, name AS text'
-		. ' FROM #__albums'
-		. ' WHERE published = 1'
-		. ' ORDER BY ordering'
-		;
-		$db->setQuery( $query );
-		$albums[] = JHTML::_('select.option',  '0', '- '. JText::_( 'Select an Album' ) .' -' );
-		$albums = array_merge( $albums, $db->loadObjectList() );
-		$lists['albumid'] = JHTML::_('select.genericlist',   $albums, 'albumid', 'class="inputbox" size=1', 'value', 'text', intval( $song->albumid ) );
-
-		// build the html select list
-		$lists['published'] 		= JHTML::_('select.booleanlist',  'published', 'class="inputbox"', $song->published );
-
-		//clean song data
-		jimport('joomla.filter.output');
-		JFilterOutput::objectHTMLSafe( $song, ENT_QUOTES, 'description' );
-
-		//Then we create the subfolder called songs
-		if ( !JFolder::create(JPATH_ROOT.DS."images".DS."songs") ) {
-		  echo "Failed to create directory images/songs";
-		  $mainframe->close();
-		}
-		// Build list of mp3s
-                $songFiles = JFolder::files(JPATH_SITE.DS."images".DS."songs", '.', true, true);
-                $songs = array(JHTML::_('select.option',  '', '- '. JText::_('Select Song') .' -'));
-                foreach ( $songFiles as $file ) {
-                  // Strip off root
-                  $file = str_replace(JPATH_ROOT.DS."images".DS."songs".DS, '', $file);
-		  $file = JPath::clean($file);
-		  $songs[] = JHTML::_('select.option',  $file );
-                }
-                $lists['mp3'] = JHTML::_('select.genericlist',  $songs, 'mp3', 'class="inputbox" size="1" '. null, 'value', 'text', $song->mp3 );
-
-		$file 	= JPATH_COMPONENT.DS.'models'.DS.'song.xml';
-		$params = new JParameter( $song->params, $file );
-
-		$this->assignRef('lists',		$lists);
-		$this->assignRef('song',		$song);
-		$this->assignRef('params',		$params);
-
-		parent::display($tpl);
-	}
+  /**
+   * Method to set up the document properties
+   *
+   * @return void
+   */
+  protected function setDocument() {
+    $isNew = ($this->item->id < 1);
+    $document = JFactory::getDocument();
+    $document->setTitle($isNew ? JText::_('COM_MUSIC_SONG_CREATING') : JText::_('COM_MUSIC_SONG_EDITING'));
+    $document->addScript(JURI::root() . $this->script);
+    $document->addScript(JURI::root() . "/administrator/components/com_music/views/song/submitbutton.js");
+    JText::script('COM_MUSIC_SONG_ERROR_UNACCEPTABLE');
+  }
 }
-?>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form addrulepath="/administrator/components/com_music/models/rules">
+  <fieldset addfieldpath="/administrator/components/com_music/models/fields" >
+    <field
+        name="id"
+        type="hidden"
+        />
+    <field
+        name="name"
+        type="text"
+        label="COM_MUSIC_ALBUM_NAME_LABEL"
+        description="COM_MUSIC_ALBUM_NAME_DESC"
+        size="40"
+        class="inputbox validate-name"
+        validate="name"
+        required="true"
+        default=""
+        />
+    <field
+        name="alias"
+        type="text"
+        label="COM_MUSIC_ALBUM_ALIAS_LABEL"
+        description="COM_MUSIC_ALBUM_ALIAS_DESC"
+        size="40"
+        class="inputbox validate-alias"
+        validate="alias"
+        required="true"
+        default=""
+        />
+    <field
+        name="creationyear"
+        type="number"
+        label="COM_MUSIC_ALBUM_CREATIONYEAR_LABEL"
+        description="COM_MUSIC_ALBUM_CREATIONYEAR_DESC"
+        size="40"
+        class="inputbox validate-number"
+        validate="number"
+        default=""
+        />
+    <field name="albumart_front" type="media" directory="music"
+           hide_none="1" label="COM_MUSIC_ALBUM_ALBUMART_FRONT_LABEL"
+           size="40"
+           description="COM_MUSIC_ALBUM_ALBUMART_FRONT_DESC" />
+    <field name="albumart_back" type="media" directory="music"
+           hide_none="1" label="COM_MUSIC_ALBUM_ALBUMART_BACK_LABEL"
+           size="40"
+           description="COM_MUSIC_ALBUM_ALBUMART_BACK_DESC" />
+  </fieldset>
+</form>

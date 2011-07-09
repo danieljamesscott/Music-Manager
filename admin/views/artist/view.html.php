@@ -1,116 +1,66 @@
 <?php
-/**
-* @package     Music
-* @subpackage  Artist
-* @copyright   Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
-* @copyright   Copyright (C) 2009 Daniel Scott (http://danieljamesscott.org). All rights reserved. 
-* @license		GNU/GPL, see LICENSE.php
-* Joomla! is free software. This version may have been modified pursuant
-* to the GNU General Public License, and as distributed it includes or
-* is derivative of works licensed under the GNU General Public License or
-* other free or open source software licenses.
-* See COPYRIGHT.php for copyright notices and details.
-*/
+// No direct access to this file
+defined('_JEXEC') or die('Restricted access');
 
-// Check to ensure this file is included in Joomla!
-defined('_JEXEC') or die();
-
-jimport( 'joomla.application.component.view');
+// import Joomla view library
+jimport('joomla.application.component.view');
 
 /**
- * HTML View class for the Artist component
- *
- * @package	Music
- * @subpackage	Artist
- * @since 1.0
+ * Music View
  */
-class MusicViewArtist extends JView
-{
-	function display($tpl = null)
-	{
-		global $mainframe;
+class MusicViewArtist extends JView {
+  /**
+   * display method of Artist view
+   * @return void
+   */
+  public function display($tpl = null) {
+    // get the Data
+    $form = $this->get('Form');
+    $item = $this->get('Item');
+    $script = $this->get('Script');
 
-		if($this->getLayout() == 'default') {
-			$this->_displayForm($tpl);
-			return;
-		}
+    // Check for errors.
+    if (count($errors = $this->get('Errors'))) {
+      JError::raiseError(500, implode('<br />', $errors));
+      return false;
+    }
+    // Assign the Data
+    $this->form = $form;
+    $this->item = $item;
+    $this->script = $script;
 
-		//get the artist
-		$artist =& $this->get('data');
+    // Set the toolbar
+    $this->addToolBar();
 
-		if ($artist->url) {
-			// redirects to url if matching id found
-			$mainframe->redirect($artist->url);
-		}
+    // Display the template
+    parent::display($tpl);
 
-		parent::display($tpl);
-	}
+    // Set the document
+    $this->setDocument();
+  }
 
-	function _displayForm($tpl)
-	{
-		global $mainframe, $option;
+  /**
+   * Setting the toolbar
+   */
+  protected function addToolBar() {
+    JRequest::setVar('hidemainmenu', true);
+    $isNew = ($this->item->id == 0);
+    JToolBarHelper::title($isNew ? JText::_('COM_MUSIC_ARTIST_NEW') : JText::_('COM_MUSIC_ARTIST_EDIT'));
+    JToolBarHelper::save('artist.save');
+    JToolBarHelper::cancel('artist.cancel', $isNew ? 'JTOOLBAR_CANCEL' : 'JTOOLBAR_CLOSE');
+  }
 
-		$db	=& JFactory::getDBO();
-		$uri 	=& JFactory::getURI();
-		$user 	=& JFactory::getUser();
-		$model	=& $this->getModel();
-
-
-		$lists = array();
-
-		//get the artist
-		$artist	=& $this->get('data');
-		$isNew		= ($artist->id < 1);
-
-		// fail if checked out not by 'me'
-		if ($model->isCheckedOut( $user->get('id') )) {
-			$msg = JText::sprintf( 'DESCBEINGEDITTED', JText::_( 'The artist' ), $artist->name );
-			$mainframe->redirect( 'index.php?option='. $option, $msg );
-		}
-
-		// Edit or Create?
-		if (!$isNew)
-		{
-			$model->checkout( $user->get('id') );
-		}
-		else
-		{
-			// initialise new record
-			$artist->published = 1;
-			$artist->approved 	= 1;
-			$artist->order 	= 0;
-			$artist->id 	= JRequest::getVar( 'id', 0, 'post', 'int' );
-		}
-
-		// build the html select list for ordering
-		$query = 'SELECT ordering AS value, name AS text'
-			. ' FROM #__artists'
-			. ' ORDER BY ordering';
-
-		$lists['ordering'] 			= JHTML::_('list.specificordering',  $artist, $artist->id, $query, 1 );
-
-		// build the html select list
-		$lists['published'] 		= JHTML::_('select.booleanlist',  'published', 'class="inputbox"', $artist->published );
-
-		//clean artist data
-		jimport('joomla.filter.output');
-		JFilterOutput::objectHTMLSafe( $artist, ENT_QUOTES, 'description' );
-
-		if ( !JFolder::create(JPATH_ROOT.DS."images".DS."artists") ) {
-		  echo "Failed to create directory images/artists";
-		  $mainframe->close();
-		}
-
-		$lists['artists'] 			= JHTMLList::images('picture', $artist->picture, '', 'images'.DS.'artists' );
-
-		$file 	= JPATH_COMPONENT.DS.'models'.DS.'artist.xml';
-		$params = new JParameter( $artist->params, $file );
-
-		$this->assignRef('lists',		$lists);
-		$this->assignRef('artist',		$artist);
-		$this->assignRef('params',		$params);
-
-		parent::display($tpl);
-	}
+  /**
+   * Method to set up the document properties
+   *
+   * @return void
+   */
+  protected function setDocument() {
+    $isNew = ($this->item->id < 1);
+    $document = JFactory::getDocument();
+    $document->setTitle($isNew ? JText::_('COM_MUSIC_ARTIST_CREATING') : JText::_('COM_MUSIC_ARTIST_EDITING'));
+    $document->addScript(JURI::root() . $this->script);
+    $document->addScript(JURI::root() . "/administrator/components/com_music/views/artist/submitbutton.js");
+    JText::script('COM_MUSIC_ARTIST_ERROR_UNACCEPTABLE');
+  }
 }
-?>

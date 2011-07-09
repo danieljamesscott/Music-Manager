@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form addrulepath="/administrator/components/com_music/models/rules">
+  <fieldset addfieldpath="/administrator/components/com_music/models/fields" >
+    <field
+        name="id"
+        type="hidden"
+        />
+    <field
+        name="name"
+        type="text"
+        label="COM_MUSIC_SONG_NAME_LABEL"
+        description="COM_MUSIC_SONG_NAME_DESC"
+        size="40"
+        class="inputbox validate-name"
+        validate="name"
+        required="true"
+        default=""
+        />
+    <field
+        name="alias"
+        type="text"
+        label="COM_MUSIC_SONG_ALIAS_LABEL"
+        description="COM_MUSIC_SONG_ALIAS_DESC"
+        size="40"
+        class="inputbox validate-alias"
+        validate="alias"
+        required="true"
+        default=""
+        />
+    <field name="filename" type="media" directory="music"
+           hide_none="1" label="COM_MUSIC_SONG_FILENAME_LABEL"
+           size="40"
+           description="COM_MUSIC_SONG_FILE_DESC" />
+    <field
+        name="number"
+        type="number"
+        label="COM_MUSIC_SONG_NUMBER_LABEL"
+        description="COM_MUSIC_SONG_NUMBER_DESC"
+        size="40"
+        class="inputbox validate-number"
+        validate="number"
+        default=""
+        />
+  </fieldset>
+</form>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+  <layout title="COM_MUSIC_ALBUM_VIEW_DEFAULT_TITLE">
+    <message>COM_MUSIC_ALBUM_VIEW_DEFAULT_DESC</message>
+  </layout>
+  <fields
+      name="request"
+      addfieldpath="/administrator/components/com_music/models/fields"
+      >
+    <fieldset name="request">
+      <field
+          name="id"
+          type="album"
+          label="COM_MUSIC_ALBUM_FIELD_LABEL"
+          description="COM_MUSIC_ALBUM_FIELD_DESC"
+          />
+    </fieldset>
+  </fields>
+</metadata>

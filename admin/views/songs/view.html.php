@@ -1,66 +1,63 @@
 <?php
-/**
-* @package	Music
-* @subpackage	Songs
-* @copyright	Copyright (C) 2005 - 2007 Open Source Matters. All rights reserved.
-* @copyright    Copyright (C) 2009 Daniel Scott (http://danieljamesscott.org). All rights reserved. 
-* @license		GNU/GPL, see LICENSE.php
-* Joomla! is free software. This version may have been modified pursuant
-* to the GNU General Public License, and as distributed it includes or
-* is derivative of works licensed under the GNU General Public License or
-* other free or open source software licenses.
-* See COPYRIGHT.php for copyright notices and details.
-*/
+// No direct access to this file
+defined('_JEXEC') or die('Restricted access');
 
-// Check to ensure this file is included in Joomla!
-defined('_JEXEC') or die();
-
-jimport( 'joomla.application.component.view');
+// import Joomla view library
+jimport('joomla.application.component.view');
 
 /**
- * HTML View class for the Song component
- *
- * @package	Music
- * @subpackage	Songs
- * @since 1.0
+ * Songs View
  */
-class MusicViewSongs extends JView
-{
-	function display($tpl = null)
-	{
-		global $mainframe, $option;
+class MusicViewSongs extends JView {
 
-		$db		=& JFactory::getDBO();
-		$uri	=& JFactory::getURI();
+  protected $items;
+  protected $pagination;
+  protected $state;
 
-		$filter_state		= $mainframe->getUserStateFromRequest( $option.'filter_state',		'filter_state',		'',				'word' );
-		$filter_albumid		= $mainframe->getUserStateFromRequest( $option.'filter_albumid',		'filter_albumid',		0,				'int' );
-		$filter_order		= $mainframe->getUserStateFromRequest( $option.'filter_order',		'filter_order',		'a.ordering',	'cmd' );
-		$filter_order_Dir	= $mainframe->getUserStateFromRequest( $option.'filter_order_Dir',	'filter_order_Dir',	'',				'word' );
-		$search				= $mainframe->getUserStateFromRequest( $option.'search',			'search',			'',				'string' );
-		$search				= JString::strtolower( $search );
+  /**
+   * Songs view display method
+   * @return void
+   */
+  function display($tpl = null) {
+    require_once JPATH_COMPONENT.'/helpers/music.php';
+    // Load the submenu.
+    MusicHelper::addSubmenu(JRequest::getCmd('view', 'songs'));
 
-		// Get data from the model
-		$items		= & $this->get( 'Data');
-		$total		= & $this->get( 'Total');
-		$pagination = & $this->get( 'Pagination' );
+    // Get data from the model
+    $this->items = $this->get('Items');
+    $this->pagination = $this->get('Pagination');
+    $this->state = $this->get('State');
 
-		// state filter
-		$lists['state']	= JHTML::_('grid.state',  $filter_state );
+    // Check for errors.
+    if (count($errors = $this->get('Errors'))) {
+      JError::raiseError(500, implode('<br />', $errors));
+      return false;
+    }
 
-		// table ordering
-		$lists['order_Dir'] = $filter_order_Dir;
-		$lists['order'] = $filter_order;
+    // Set the toolbar
+    $this->addToolBar();
 
-		// search filter
-		$lists['search']= $search;
+    // Display the template
+    parent::display($tpl);
+  }
 
-		$this->assignRef('user',		JFactory::getUser());
-		$this->assignRef('lists',		$lists);
-		$this->assignRef('items',		$items);
-		$this->assignRef('pagination',	$pagination);
-		
-		parent::display($tpl);
-	}
+  /**
+   * Setting the toolbar
+   */
+  protected function addToolBar() {
+    JToolBarHelper::title(JText::_('COM_MUSIC_MANAGER_SONGS'));
+    JToolBarHelper::deleteList('', 'songs.delete');
+    JToolBarHelper::editList('song.edit');
+    JToolBarHelper::addNew('song.add');
+  }
+
+  /**
+   * Method to set up the document properties
+   *
+   * @return void
+   */
+  protected function setDocument() {
+    $document = JFactory::getDocument();
+    $document->setTitle(JText::_('COM_MUSIC_ADMINISTRATION'));
+  }
 }
-?>
