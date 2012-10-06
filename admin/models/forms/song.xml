@@ -27,7 +27,7 @@
         required="true"
         default=""
         />
-    <field name="filename" type="media" directory="music"
+    <field name="filename" type="filelist" directory="music"
            hide_none="1" label="COM_MUSIC_SONG_FILENAME_LABEL"
            size="40"
            description="COM_MUSIC_SONG_FILE_DESC" />
